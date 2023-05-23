@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>login</title>
+    <meta charset="utf-8">
+    <style>
+        body{
+            background-color: #fff;
+            padding: 40px;
+        }
+
+        a:hover{
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .form{
+            background-color: aliceblue;
+            margin: auto;
+            width: 350px;
+            padding: 10px 20px;
+            border: ridge 3px;
+        }
+
+        input{
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 10px;
+            height: 35px;
+        }
+
+        .title{
+            text-align: center;
+        }
+
+        .submit-button:hover{
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <form action="#" method="post">
+            <h1 class="title">Login</h1>
+            <hr>
+            <div class="input-group">
+                <label for="UserName">UserName</label>
+                <br>
+                <input type="text" name="UserName" id="UserName" required placeholder="Enter UserName">
+            </div>
+            <br>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <br>
+                <input type="password" name="password" id="password" required placeholder="Enter Password">
+            </div>
+            <br>
+            <input class="submit-button" type="submit" value="Submit">
+            <p>Don't have an account?&nbsp<a href="register.html">Register</a></p>
+        </form>
+    </div>
+</body>
