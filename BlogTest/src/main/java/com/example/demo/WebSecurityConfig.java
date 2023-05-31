@@ -24,13 +24,14 @@ public class WebSecurityConfig{
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 		http.formLogin(login -> login
 				.loginPage("/login")
-				.defaultSuccessUrl("/user-login",true)
+				.defaultSuccessUrl("/userhomepage",true)
 				.usernameParameter("userName")
 				.passwordParameter("userPassword")
-				.failureUrl("/user-login")
+				.failureUrl("/loginerror")
+				.loginProcessingUrl("/user-login")
 				.permitAll()
 		).logout(logout -> logout
-				.logoutSuccessUrl("/login")
+				.logoutSuccessUrl("/homepage")
 		).authorizeHttpRequests(authz -> authz
 				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 				.requestMatchers("/homepage","/register","/login").permitAll()
@@ -53,7 +54,7 @@ public class WebSecurityConfig{
 				.build()
 				).toList();
 		
-		var manager = new InMemoryUserDetailsManager(users);
+		manager = new InMemoryUserDetailsManager(users);
 		manager.createUser(User
 				.withDefaultPasswordEncoder()
 				.username("Alice")

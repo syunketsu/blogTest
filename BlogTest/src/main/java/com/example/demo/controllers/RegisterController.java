@@ -14,13 +14,6 @@ public class RegisterController {
 	@Autowired
 	private AccountService accountService;
 	
-//	@GetMapping("/register")
-//	public ModelAndView getRegisterPage(ModelAndView mav) {
-//		mav.addObject("error", false);
-//		mav.setViewName("register.html");
-//		return mav;
-//	}
-	
 	@GetMapping("/register")
 	public String getRegisterPage() {
 		return "register.html";

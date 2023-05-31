@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>login</title>
+    <meta charset="utf-8">
+    <style>
+        body{
+            background-color: #fff;
+            padding: 40px;
+        }
+
+        .form{
+            background-color: aliceblue;
+            margin: auto;
+            width: 600px;
+            padding: 10px 20px;
+            border: ridge 3px;
+        }
+
+        .publish-button{
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 10px;
+            height: 35px;
+        }
+
+        .back-btn{
+            box-sizing: border-box;
+            width: 100%;
+            margin-top: 10px;
+            height: 35px;
+        }
+
+        .title{
+            text-align: center;
+        }
+
+        button:hover{
+            background-color: #333;
+            color: #fff;
+        }        
+    </style>
+</head>
+
+<body>
+    <div class="form">
+        <form th:action="@{/user/blog/update}" method="post">
+            <h1 class="title">Blog Edit</h1>
+            <hr>
+            <br>
+            <div>
+                <label for="blogTitle">タイトル</label>
+                <br>
+                <textarea class="input1" id="blogTitle" rows="1" cols="80" name="blogTitle" th:text="${blog.blogTitle}"></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="blogAbstract">概要</label>
+                <br>
+                <textarea class="input2" id="blogAbstract" rows="5" cols="80" name="blogAbstract" th:text="${blog.blogAbstract}"></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="blogMessage">内容</label>
+                <br>
+                <textarea class="input3" id="content" rows="15" cols="80" name="blogMessage" th:text="${blog.blogMessage}"></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="nickName">筆名</label>
+                <br>
+                <textarea class="input4" id="nickname" rows="1" cols="80" name="nickName" th:text="${blog.nickName}"></textarea>
+            </div>
+            <br>
+            <div>
+                <label for="type">記事分類</label>
+                <br>
+                <div id="categoryButtons">
+                    <button class="button" onclick="displayCategory('人文科学')" type="button">人文科学</button>
+                    <button class="button" onclick="displayCategory('旅行')" type="button">旅行</button>
+                    <button class="button" onclick="displayCategory('美食')" type="button">美食</button>
+                    <button class="button" onclick="displayCategory('芸術')" type="button">芸術</button>
+                    <button class="button" onclick="displayCategory('ファッション')" type="button">ファッション</button>
+                    <button class="button" onclick="displayCategory('哲学')" type="button">哲学</button>
+                </div>
+            </div>
+            <br>
+            <div>
+                <label for="type">選択した記事分類</label>
+                <br>
+                <textarea class="input5" id="category" rows="1" cols="80" name="category" th:text="${blog.category}"></textarea>
+            </div>
+            <input type="hidden" name="userId" th:value="${userId}">
+            <input type="hidden" name="userName" th:value="${userName}">
+            <input type="hidden" name="blogId" th:value="${blog.blogId}">
+            <input type="hidden" name="createTime" th:value="${createTime}">
+            <button class="publish-button">更新</button>
+            <button class="back-btn" onclick="history.back();" type="button">戻る</button>
+        </form>
+    </div>
+
+    <script>
+        function displayCategory(category){
+            var selectedCategoryElement = document.getElementById("category");
+            selectedCategoryElement.textContent = category;
+        }
+    </script>
+</body>

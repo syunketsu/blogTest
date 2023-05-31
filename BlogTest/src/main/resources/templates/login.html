@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>login</title>
     <meta charset="utf-8">
@@ -46,15 +46,15 @@
         <form th:action="@{/user-login}" method="post">
             <h1 class="title">Login</h1>
             <hr>
-            <p class="error" th:if="${error}">Wrong UserName or Password!</p>
+            <p class="error" th:if="${error}" style="color: red;">Wrong UserName or Password!</p>
             <div class="input-group">
-                <label for="username">UserName</label>
+                <label for="username">ユーザ名</label>
                 <br>
                 <input type="text" name="userName" id="username" required placeholder="Enter UserName"></input>
             </div>
             <br>
             <div class="input-group">
-                <label for="password">Password</label>
+                <label for="password">パスワード</label>
                 <br>
                 <input type="password" name="userPassword" id="password" required placeholder="Enter Password"></input>
             </div>

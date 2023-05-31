@@ -36,8 +36,8 @@ public class Account {
 	@Column(name="user_password")
 	private String userPassword;
 	
-	@OneToMany(mappedBy="account")
-	private List<Blog> blogs;
+//	@OneToMany(mappedBy="account")
+//	private List<Blog> blogs;
 }
 
 
