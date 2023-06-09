@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>PlanetCity</title>
+        <meta charset="UTF-8">
+        <style>
+            .header1{
+                background-color: #fff;
+                padding: 10px;
+            }
+
+            .ul1{
+                list-style-type: none;
+                margin: 0;
+                padding: 0;
+            }
+
+            .ul1 li{
+                display: inline;
+                margin-right: 10px;
+            }
+
+            .ul1 li a{
+                color: #333;
+                text-decoration: none;
+            }
+
+            .ul1 li a:hover{
+                border-radius: 5px;
+                background-color: #333;
+                color: #fff;
+            }
+
+            .header2{
+                background-color: #f5f5f5;
+                padding: 10px;
+                text-align: center;
+            }
+
+            main{
+                display: flex;
+            }
+
+            .blog{
+                flex: 3;
+                padding: 10px;
+                background-color: #fff;
+            }
+
+            .categoryButtons{
+                background-color: #fff;
+                list-style-type: none;
+                margin: 20px 20px;
+                padding: 0;
+            }
+
+            .button{
+                background-color: #fff;
+                display: inline-block;
+                margin-right: 20px;
+                border: none;
+            }
+
+            .button:hover{
+                border-radius: 5px;
+                background-color: #333;
+                color: #fff;
+            }
+
+            .all-view__flex{
+                border-bottom: 1px solid gray;;
+            }
+        </style>
+    </head>
+
+    <body>
+        <header class="header1">
+            <nav>
+                <ul class="ul1">
+                    <li class="homepage" th:unless="${name != null}"><a th:href="@{/homepage}">ホームページ</a></li>
+                    <li class="login" th:unless="${name != null}"><a th:href="@{/login}">ログイン</a></li>
+                    <li class="register" th:unless="${name != null}"><a th:href="@{/register}">新規登録</a></li>
+                    <li class="username"><a th:href="@{/user/blog/all}">[[${name}]]</a></li>
+                    <li class="logout" th:if="${name != null}"><a th:href="@{/homepage}">ログアウト</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <header class="header2">
+            <div class="container">
+                <h1 class="h1">Welcome to PlanetCity</h1>
+                <p>「世界上最遥远的距离不是树枝无法相依，<br><br>而是互相瞭望的星星却没有交汇的轨迹。」——タゴール</p>
+                <div id="categoryButtons" class="categoryButtons">
+                    <button class="button" onclick="showAllBlogs()" type="button">一覧</button>
+                    <button class="button" onclick="filterBlogs('人文科学')" type="button">人文科学</button>
+                    <button class="button" onclick="filterBlogs('旅行')" type="button">旅行</button>
+                    <button class="button" onclick="filterBlogs('美食')" type="button">美食</button>
+                    <button class="button" onclick="filterBlogs('芸術')" type="button">芸術</button>
+                    <button class="button" onclick="filterBlogs('ファッション')" type="button">ファッション</button>
+                    <button class="button" onclick="filterBlogs('哲学')" type="button">哲学</button>
+                    <button class="button" onclick="filterBlogs()" type="button">ほか</button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="blog">
+                <div class="all-view__flex" th:each="blog:${blogList}" th:data-category="${blog.category}">
+                    <table class="bloglist">
+                        <tr>
+                            <td><br></td>
+                        </tr>
+                        <tr>
+                            <td th:text=" 「+${blog.blogTitle}+」" style="font-size: 20px;"></td>
+                            <td><br></td>
+                        </tr>
+                        <tr>
+                            <td th:text="${blog.blogAbstract}"></td>
+                            <td><br></td>                            
+                        </tr>
+                        <tr>
+                            <td th:text="${blog.blogMessage}"></td>
+                            <td><br></td>                            
+                        </tr>
+                        <tr>
+                            <td style="color: grey;" th:text="記事分類：+ ${blog.category} + '&nbsp;&nbsp;&nbsp;&nbsp;筆名：'+ ${blog.nickName} + '&nbsp;&nbsp;&nbsp;&nbsp;公開日時：'+ ${blog.createTime}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <script>
+            const h1 = document.querySelector('.h1');
+            h1.addEventListener('mouseover', function(){
+                this.style.transform = 'scale(1.02)';
+            });
+            h1.addEventListener('mouseout', function(){
+                this.style.transform = 'scale(1)';
+            });
+
+            const categoryButtons  = document.querySelector('.categoryButtons');
+            categoryButtons.addEventListener('mouseover', function(){
+                this.style.transform = 'scale(1.05)';
+            });
+            categoryButtons.addEventListener('mouseout', function(){
+                this.style.transform = 'scale(1)';
+            });
+            
+            function filterBlogs(category) {
+                var blogs = document.getElementsByClassName("all-view__flex");
+                for (var i = 0; i < blogs.length; i++) {
+                    var blog = blogs[i];
+                    if(category){
+                        if (blog.getAttribute("data-category") === category){
+                            blog.style.display = "block";
+                        }else{
+                            blog.style.display = "none";
+                        }
+                    }else{
+                        var blogCategory = blog.getAttribute("data-category");
+                        if(
+                            blogCategory !== "人文科学" &&
+                            blogCategory !== "旅行" &&
+                            blogCategory !== "美食" &&
+                            blogCategory !== "芸術" &&
+                            blogCategory !== "ファッション" &&
+                            blogCategory !== "哲学"
+                        ){
+                            blog.style.display = "block";
+                        }else{
+                            blog.style.display = "none";
+                        }
+                    }
+                }
+            }
+
+            function showAllBlogs() {
+                var blogs = document.getElementsByClassName("all-view__flex");
+                for (var i = 0; i < blogs.length; i++) {
+                    blogs[i].style.display = "block";
+                }
+            }
+        </script>
+    </body>
+</html>
